@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Inspiro | U.S. Outbound Growth Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<parameter name="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#2c5aa0;
+  --brand-2:#1e4278;
+  --brand-deep:#153154;
+  --brand-soft:#e8f0fc;
+  --ink:#1a2332;
+  --char:#1a2332;
+  --muted:#5a6c7d;
+  --line:#e1e8ed;
+  --bg:#f8f9fb;
+  --card:#ffffff;
+}
+[data-theme="dark"]{
+  --brand:#4a7bc8;
+  --brand-2:#5a8bd8;
+  --brand-deep:#6a9be8;
+  --brand-soft:#1a2d47;
+  --ink:#e8f0fc;
+  --char:#e8f0fc;
+  --muted:#a0b0c0;
+  --line:#2a3d57;
+  --bg:#0f1419;
+  --card:#1a2332;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;transition:background-color .3s ease}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background-color .3s ease, color .3s ease}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
+svg{display:block}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none}}
+
+/* Login screen */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
+.login-container{background:var(--card);padding:50px;border-radius:18px;box-shadow:0 24px 60px rgba(44,90,160,.13);width:100%;max-width:400px;border:1px solid var(--line)}
+.login-container h1{font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.login-container p{font-size:14px;color:var(--muted);margin-bottom:30px}
+.login-form input{width:100%;padding:14px 16px;margin-bottom:15px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:inherit;background:var(--bg);color:var(--ink);transition:border-color .2s}
+.login-form input:focus{outline:none;border-color:var(--brand)}
+.login-form button{width:100%;padding:14px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 20px rgba(44,90,160,.3)}
+.login-form button:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(44,90,160,.4)}
+.error-message{display:none;color:#d9534f;font-size:13px;margin-top:10px;text-align:center}
+#content-screen{display:none}
+
+/* Theme toggle */
+.theme-toggle{position:fixed;top:20px;right:20px;z-index:9999;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .2s}
+.theme-toggle:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
+.theme-toggle svg{width:16px;height:16px;color:var(--brand)}
+
+/* Top bar */
+.topbar{background:var(--card);padding:16px 0;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px)}
+.topbar .row{max-width:900px;margin:0 auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand-logo{font-size:20px;font-weight:900;color:var(--brand);letter-spacing:-.5px}
+.ai-pill{display:inline-flex;align-items:center;gap:8px;background:var(--brand-soft);border:1px solid var(--brand);color:var(--brand);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:7px 14px;border-radius:30px;white-space:nowrap}
+.ai-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--brand);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Hero */
+.hero{background:linear-gradient(150deg,var(--brand) 0%,var(--brand-2) 72%,var(--brand-deep) 100%);color:#fff;padding:60px 0 140px;position:relative;overflow:hidden}
+.hero .grid-tex{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.18) 1px,transparent 1px);background-size:26px 26px;opacity:.2;pointer-events:none}
+.hero .row{max-width:900px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
+.kicker{font-size:11.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hero h1{font-size:clamp(32px,7vw,46px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;margin:16px 0 18px}
+.hero .sub{font-size:17px;color:rgba(255,255,255,.85);max-width:640px;line-height:1.6}
+.prepared{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px;max-width:560px}
+.prepared .chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);border-radius:10px;padding:10px 14px;font-size:13px;color:#fff;font-weight:500}
+.prepared .chip b{font-weight:700}
+
+/* Headline card */
+.headline-card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(44,90,160,.15);padding:36px 40px;margin-top:-100px;position:relative;z-index:3}
+.hc-top{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.hc-num .lbl{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.hc-num .big{font-size:clamp(32px,8vw,56px);font-weight:900;color:var(--brand);letter-spacing:-2px;line-height:1;margin:14px 0 10px}
+.hc-num .sub{font-size:14px;color:var(--muted);max-width:440px;line-height:1.6}
+.hc-verify{display:flex;flex-direction:column;gap:14px}
+.hc-verify .v{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--ink);max-width:280px}
+.hc-verify .v svg{width:18px;height:18px;color:var(--brand);flex-shrink:0;margin-top:1px}
+
+/* Section */
+.section{margin-top:60px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.section-head h2{font-size:clamp(22px,5vw,28px);font-weight:800;color:var(--ink);letter-spacing:-.8px}
+.section-head .num{font-size:13px;font-weight:700;color:var(--brand);background:var(--brand-soft);padding:5px 13px;border-radius:20px}
+.section-intro{font-size:15px;color:var(--muted);max-width:720px;margin-bottom:28px;line-height:1.65}
+
+/* Info cards */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;box-shadow:0 8px 26px rgba(44,90,160,.06);transition:all .25s}
+.info-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(44,90,160,.12);border-color:var(--brand)}
+.info-card .ic{width:48px;height:48px;border-radius:12px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;color:var(--brand);margin-bottom:18px}
+.info-card .ic svg{width:24px;height:24px}
+.info-card h3{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:10px;letter-spacing:-.3px}
+.info-card p{font-size:14px;color:var(--muted);line-height:1.6}
+.info-card .meta{font-size:12px;font-weight:700;color:var(--brand);margin-top:12px;text-transform:uppercase;letter-spacing:.5px}
+
+/* Table */
+.data-table{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 26px rgba(44,90,160,.06)}
+.data-table table{width:100%;border-collapse:collapse}
+.data-table th{background:var(--brand);color:#fff;padding:16px;text-align:left;font-weight:700;font-size:13px;letter-spacing:.5px;text-transform:uppercase}
+.data-table td{padding:18px 16px;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover{background:var(--brand-soft)}
+.data-table td strong{color:var(--brand);font-weight:800}
+
+/* Workflow */
+.workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:32px 0;padding:32px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.workflow-step{text-align:center;position:relative}
+.workflow-step::after{content:'→';position:absolute;right:-18px;top:16px;font-size:20px;color:var(--brand);font-weight:700}
+.workflow-step:last-child::after{display:none}
+.workflow-step .number{width:40px;height:40px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border-radius:50%;line-height:40px;font-weight:800;margin:0 auto 12px;font-size:16px;box-shadow:0 4px 12px rgba(44,90,160,.3)}
+.workflow-step .label{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.4}
+
+/* Proof */
+.proof{background:linear-gradient(155deg,var(--brand-deep),#0a1a2e);color:#fff;border-radius:20px;padding:40px 42px;position:relative;overflow:hidden;margin-top:40px}
+.proof .grid-tex{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.1) 1px,transparent 1px);background-size:24px 24px;opacity:.15}
+.proof .tag{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8db4f0;background:rgba(74,123,200,.2);border:1px solid rgba(141,180,240,.3);padding:6px 14px;border-radius:30px}
+.proof .story{position:relative;z-index:2;font-size:17px;line-height:1.65;color:#d8e4f7;margin:18px 0 24px;max-width:700px}
+.proof .story b{color:#fff}
+.proof .stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.proof .stats .st{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:18px 14px;text-align:center}
+.proof .stats .st .n{font-size:clamp(22px,6vw,32px);font-weight:900;color:#fff;letter-spacing:-1px;line-height:1}
+.proof .stats .st .l{font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:#8db4f0;margin-top:8px}
+
+/* CTA */
+.cta{text-align:center;margin-top:50px;background:linear-gradient(165deg,var(--card),var(--brand-soft));border:1.5px solid var(--brand);border-radius:20px;padding:48px 36px;box-shadow:0 20px 50px rgba(44,90,160,.15)}
+.cta h2{font-size:clamp(24px,4vw,32px);font-weight:900;color:var(--ink);letter-spacing:-1px;line-height:1.15;margin:0 auto 16px;max-width:620px}
+.cta p{font-size:16px;color:var(--muted);max-width:580px;margin:0 auto 28px;line-height:1.65}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:800;font-size:16px;letter-spacing:.3px;padding:18px 36px;border-radius:12px;text-decoration:none;box-shadow:0 12px 32px rgba(44,90,160,.4);transition:transform .15s,box-shadow .15s;cursor:pointer;border:none}
+.btn::before{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 52%);pointer-events:none}
+.btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 44px rgba(44,90,160,.5)}
+.btn svg{width:18px;height:18px}
+
+/* Footer */
+.foot{text-align:center;margin-top:60px;padding-top:32px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.8}
+
+@media(max-width:720px){
+  .wrap{padding:0 16px 70px}
+  .hero{padding:50px 0 120px}
+  .headline-card{padding:28px 24px;margin-top:-90px}
+  .hc-top{grid-template-columns:1fr;gap:24px}
+  .workflow{grid-template-columns:1fr;gap:16px}
+  .workflow-step::after{display:none}
+  .info-grid{grid-template-columns:1fr}
+  .cta{padding:38px 24px}
+  .proof{padding:32px 24px}
+  .proof .stats{grid-template-columns:1fr;gap:10px}
+  .prepared{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div id="login-screen">
+  <div class="login-container">
+    <h1>Secure Access</h1>
+    <p>Please enter your credentials to continue</p>
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <input type="text" id="username" placeholder="Username" required autocomplete="username">
+      <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
+      <button type="submit">Access Strategy</button>
+      <div class="error-message" id="error-message">Invalid credentials. Please try again.</div>
+    </form>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div id="content-screen">
+
+<!-- Theme Toggle -->
+<div class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
+  <svg id="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg id="theme-icon-moon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <span id="theme-text">Dark</span>
+</div>
+
+<!-- Top bar -->
+<header class="topbar">
+  <div class="row">
+    <div class="brand-logo">INSPIRO</div>
+    <div class="ai-pill"><span class="dot"></span> Outbound Strategy</div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="grid-tex"></div>
+  <div class="row">
+    <div class="kicker">Prepared for</div>
+    <h1>Inspiro U.S. Outbound Growth Strategy</h1>
+    <p class="sub">A 30-day, signal-driven pilot designed to generate qualified sales conversations with U.S. companies that need customer experience and business process outsourcing solutions.</p>
+    <div class="prepared">
+      <div class="chip">Target: <b>Retail & Telecom</b></div>
+      <div class="chip">Objective: <b>2–6 Qualified Meetings</b></div>
+      <div class="chip">Prepared by: <b>Angela Petkovska</b></div>
+      <div class="chip">Date: <b>November 2026</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- Headline card -->
+  <div class="headline-card reveal">
+    <div class="hc-top">
+      <div class="hc-num">
+        <div class="lbl">Initial Planning Target</div>
+        <div class="big">2–6 Meetings</div>
+        <div class="sub">Conservative first-month objective conditional on approved messaging, ready infrastructure, and signal quality.</div>
+      </div>
+      <div class="hc-verify">
+        <div class="v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Signal-driven targeting</div>
+        <div class="v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Multi-channel outreach</div>
+        <div class="v"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Verified proof points</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Understanding Inspiro -->
+  <div class="section reveal">
+    <div class="section-head"><h2>Understanding Inspiro</h2></div>
+    <p class="section-intro">Inspiro provides outsourced customer experience, customer service, technical support, back-office and business process services, supported by automation and AI-enabled workflows. Value is particularly relevant to organizations managing high customer-contact volumes, operational complexity, seasonal demand, and service-quality pressures.</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h3>U.S. Floral Retailer</h3>
+        <p>80% increase in order fulfillment rate and 47% reduction in customer escalations through improved customer service and operational processes.</p>
+        <div class="meta">Retail Case Study</div>
+      </div>
+      <div class="info-card">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+        <h3>U.S. Connectivity Company</h3>
+        <p>40% improvement in SLA performance, reaching 99% service level, plus 30% fewer errors within accounts-payable operations.</p>
+        <div class="meta">Telecom Case Study</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ICP -->
+  <div class="section reveal">
+    <div class="section-head"><h2>Recommended ICP and Buyer Personas</h2></div>
+    <div class="data-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>ICP Definition</th>
+            <th>Key Challenges</th>
+            <th>Primary Personas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Priority 1:<br>Retail & E-commerce</strong></td>
+            <td>U.S. omnichannel retailers, large e-commerce businesses, and consumer brands with significant customer support requirements</td>
+            <td>Seasonal volume spikes, order inquiries, returns, delivery issues, service quality</td>
+            <td>VP Customer Experience, VP Customer Care, Director Contact Center Operations</td>
+          </tr>
+          <tr>
+            <td><strong>Priority 2:<br>Telecommunications</strong></td>
+            <td>U.S. telecom, wireless, broadband, and connectivity businesses with complex customer service, billing, or operational support needs</td>
+            <td>High customer-contact volumes, billing complexity, escalations, process inefficiency</td>
+            <td>VP Customer Operations, VP Contact Center Operations, VP Billing Operations</td>
+          </tr>
+          <tr>
+            <td><strong>Validation:<br>Financial Operations</strong></td>
+            <td>U.S. companies with substantial back-office, finance operations, reconciliation, or processing needs</td>
+            <td>Back-office workload, manual processes, accuracy requirements, operational efficiency</td>
+            <td>COO, VP Shared Services, VP Finance Operations</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="section reveal">
+    <div class="section-head"><h2>My Standard Lead Generation Process</h2></div>
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="number">1</div>
+        <div class="label">Source Companies in Clay</div>
+      </div>
+      <div class="workflow-step">
+        <div class="number">2</div>
+        <div class="label">Verify ICP Fit</div>
+      </div>
+      <div class="workflow-step">
+        <div class="number">3</div>
+        <div class="label">Enrich Decision-Makers</div>
+      </div>
+      <div class="workflow-step">
+        <div class="number">4</div>
+        <div class="label">Find & Verify Emails</div>
+      </div>
+      <div class="workflow-step">
+        <div class="number">5</div>
+        <div class="label">Segment & Launch</div>
+      </div>
+    </div>
+    <p class="section-intro"><strong>Guiding Principle:</strong> Company qualification determines WHO we target. Campaign segmentation determines WHAT we say. Market signals determine WHEN we prioritize an account.</p>
+  </div>
+
+  <!-- Proof -->
+  <div class="proof reveal">
+    <div class="grid-tex"></div>
+    <div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><polyline points="20 6 9 17 4 12"/></svg> Experience Highlights</div>
+    <p class="story"><b>Angela</b> has worked with two successful B2B lead generation agencies and independently supported lead generation projects for other companies. At one point, she managed <b>19 client accounts simultaneously</b> across different industries and ICPs.</p>
+    <div class="stats">
+      <div class="st"><div class="n">19</div><div class="l">Client accounts managed</div></div>
+      <div class="st"><div class="n">20+</div><div class="l">Tools expertise</div></div>
+      <div class="st"><div class="n">Full-cycle</div><div class="l">ICP to meeting</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta reveal">
+    <h2>Ready to review the complete strategy document?</h2>
+    <p>This includes detailed buying signals, campaign messaging, 30-day execution timeline, sending capacity analysis, and 5 strategic questions before launch.</p>
+    <a class="btn" href="#full-strategy" onclick="scrollToTop()">
+      <span>View Full Strategy</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="foot">
+    <strong>Sources:</strong> Inspiro case studies from inspiro.com/insights/case-studies
+    <br>Prepared by Angela Petkovska, November 2026
+  </div>
+
+</div>
+
+</div>
+
+<script>
+// Login
+function handleLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const errorMessage = document.getElementById('error-message');
+
+  if (username === 'Admin2026' && password === 'AngelaAdmin2026.!') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('content-screen').style.display = 'block';
+    errorMessage.style.display = 'none';
+    initTheme();
+    initReveal();
+  } else {
+    errorMessage.style.display = 'block';
+  }
+}
+
+// Theme toggle
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    updateThemeUI(true);
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const isDark = current === 'dark';
+
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+    updateThemeUI(false);
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+    updateThemeUI(true);
+  }
+}
+
+function updateThemeUI(isDark) {
+  const sunIcon = document.getElementById('theme-icon-sun');
+  const moonIcon = document.getElementById('theme-icon-moon');
+  const themeText = document.getElementById('theme-text');
+
+  if (isDark) {
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+    themeText.textContent = 'Light';
+  } else {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+    themeText.textContent = 'Dark';
+  }
+}
+
+// Reveal animations
+function initReveal() {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: .12, rootMargin: '0px 0px -40px 0px'});
+
+  els.forEach(el => io.observe(el));
+}
+
+function scrollToTop() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>
