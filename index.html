@@ -170,6 +170,10 @@ svg{display:block}
 .lead-item .lead-links{display:flex;gap:10px}
 .lead-item .lead-links a{font-size:12px;font-weight:600;color:var(--brand);text-decoration:none;padding:4px 12px;background:var(--brand-soft);border-radius:6px;transition:all .2s}
 .lead-item .lead-links a:hover{background:var(--brand);color:#fff}
+.lead-item .email-display{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px}
+.lead-item .email-display .email-text{color:var(--ink);font-family:monospace;background:var(--bg);padding:6px 12px;border-radius:6px;border:1px solid var(--line)}
+.lead-item .email-display .verified-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;font-weight:700;padding:4px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
+.lead-item .email-display .verified-badge svg{width:12px;height:12px}
 .expand-toggle{margin-top:16px;text-align:center;padding:12px;background:var(--bg);border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--brand);transition:all .2s}
 .expand-toggle:hover{background:var(--brand-soft)}
 
@@ -1115,8 +1119,16 @@ function renderCompanyCard(company, allLeads, fitClass) {
             <div class="job-title">${lead['Job Title']}</div>
             <div class="lead-links">
               ${lead['LinkedIn Profile'] ? `<a href="${lead['LinkedIn Profile']}" target="_blank">LinkedIn</a>` : ''}
-              ${lead.Email ? `<a href="mailto:${lead.Email}">Email</a>` : ''}
             </div>
+            ${lead.Email ? `
+              <div class="email-display">
+                <span class="email-text">${lead.Email}</span>
+                <span class="verified-badge">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  Verified
+                </span>
+              </div>
+            ` : ''}
           </div>
         `).join('')}
       </div>
