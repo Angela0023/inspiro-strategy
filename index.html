@@ -836,7 +836,7 @@ svg{display:block}
   <!-- CTA -->
   <div class="cta-box reveal">
     <h2>View 25 Top Picks</h2>
-    <p>I've identified 8 qualified U.S. retail companies with 25 verified decision-maker contacts across operations, customer experience, and contact center leadership. See the full list of companies and leads below.</p>
+    <p>I've identified 9 qualified U.S. retail companies with 25 verified decision-maker contacts across operations, customer experience, and contact center leadership. See the full list of companies and leads below.</p>
     <button class="btn" onclick="document.getElementById('companies-section').scrollIntoView({behavior: 'smooth', block: 'start'})">
       <span>View Companies & Leads</span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -857,7 +857,7 @@ svg{display:block}
 
   <!-- Qualified Companies & Leads -->
   <div class="section reveal" style="margin-top:60px" id="companies-section">
-    <div class="section-head"><h2>Top Qualified Companies & Leads</h2><span class="num">8 companies, 25 leads</span></div>
+    <div class="section-head"><h2>Top Qualified Companies & Leads</h2><span class="num">9 companies, 25 leads</span></div>
     <p class="section-intro">I've identified and qualified these U.S. retail companies with verified decision-maker contacts. Each company has been scored on operational fit, signal strength, and solution match.</p>
 
     <div class="callout" style="margin-bottom:28px;background:linear-gradient(135deg,var(--brand-soft),var(--card));border:2px solid var(--brand)">
@@ -978,36 +978,55 @@ async function loadCompaniesAndLeads() {
 }
 
 function parseCSV(text) {
-  const lines = text.split('\n');
-  const headers = lines[0].split(',').map(h => h.trim());
+  const rows = [];
+  let currentRow = [];
+  let currentField = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    const nextChar = text[i + 1];
+
+    if (char === '"' && nextChar === '"' && inQuotes) {
+      currentField += '"';
+      i++;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      currentRow.push(currentField.trim());
+      currentField = '';
+    } else if (char === '\n' && !inQuotes) {
+      currentRow.push(currentField.trim());
+      if (currentRow.some(field => field.length > 0)) {
+        rows.push(currentRow);
+      }
+      currentRow = [];
+      currentField = '';
+    } else {
+      currentField += char;
+    }
+  }
+
+  if (currentField || currentRow.length > 0) {
+    currentRow.push(currentField.trim());
+    if (currentRow.some(field => field.length > 0)) {
+      rows.push(currentRow);
+    }
+  }
+
+  if (rows.length === 0) return [];
+
+  const headers = rows[0].map(h => h.trim());
   const data = [];
 
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
-
-    const values = [];
-    let current = '';
-    let inQuotes = false;
-
-    for (let j = 0; j < lines[i].length; j++) {
-      const char = lines[i][j];
-
-      if (char === '"') {
-        inQuotes = !inQuotes;
-      } else if (char === ',' && !inQuotes) {
-        values.push(current.trim());
-        current = '';
-      } else {
-        current += char;
-      }
-    }
-    values.push(current.trim());
-
+  for (let i = 1; i < rows.length; i++) {
     const row = {};
     headers.forEach((header, index) => {
-      row[header] = values[index] || '';
+      row[header] = rows[i][index] || '';
     });
-    data.push(row);
+    if (Object.values(row).some(val => val.length > 0)) {
+      data.push(row);
+    }
   }
 
   return data;
