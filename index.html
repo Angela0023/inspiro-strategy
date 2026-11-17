@@ -167,13 +167,19 @@ svg{display:block}
 .lead-item:hover{border-color:var(--brand);transform:translateX(4px)}
 .lead-item h5{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
 .lead-item .job-title{font-size:13px;color:var(--muted);margin-bottom:10px}
-.lead-item .lead-links{display:flex;gap:10px}
-.lead-item .lead-links a{font-size:12px;font-weight:600;color:var(--brand);text-decoration:none;padding:4px 12px;background:var(--brand-soft);border-radius:6px;transition:all .2s}
+.lead-item .lead-links{display:flex;gap:10px;flex-wrap:wrap}
+.lead-item .lead-links a{font-size:12px;font-weight:600;color:var(--brand);text-decoration:none;padding:6px 12px;background:var(--brand-soft);border-radius:6px;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
 .lead-item .lead-links a:hover{background:var(--brand);color:#fff}
-.lead-item .email-display{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px}
-.lead-item .email-display .email-text{color:var(--ink);font-family:monospace;background:var(--bg);padding:6px 12px;border-radius:6px;border:1px solid var(--line)}
-.lead-item .email-display .verified-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:10px;font-weight:700;padding:4px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px}
-.lead-item .email-display .verified-badge svg{width:12px;height:12px}
+.lead-item .lead-links a svg{width:14px;height:14px}
+.email-container{display:flex;align-items:center;gap:8px;margin-top:10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.email-container .email-icon{color:var(--brand);flex-shrink:0}
+.email-container .email-icon svg{width:16px;height:16px}
+.email-container .email-text{color:var(--ink);font-size:13px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.email-container .copy-btn{background:var(--brand-soft);color:var(--brand);border:none;padding:6px 10px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;transition:all .2s}
+.email-container .copy-btn:hover{background:var(--brand);color:#fff;transform:translateY(-1px)}
+.email-container .copy-btn svg{width:12px;height:12px}
+.email-container .verified-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:9px;font-weight:700;padding:4px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+.email-container .verified-badge svg{width:11px;height:11px}
 .expand-toggle{margin-top:16px;text-align:center;padding:12px;background:var(--bg);border-top:1px solid var(--line);font-size:13px;font-weight:700;color:var(--brand);transition:all .2s}
 .expand-toggle:hover{background:var(--brand-soft)}
 
@@ -1121,10 +1127,25 @@ function renderCompanyCard(company, allLeads, fitClass) {
               ${lead['LinkedIn Profile'] ? `<a href="${lead['LinkedIn Profile']}" target="_blank">LinkedIn</a>` : ''}
             </div>
             ${lead.Email ? `
-              <div class="email-display">
+              <div class="email-container">
+                <span class="email-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </span>
                 <span class="email-text">${lead.Email}</span>
+                <button class="copy-btn" onclick="copyEmail('${lead.Email}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                  Copy
+                </button>
                 <span class="verified-badge">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
                   Verified
                 </span>
               </div>
@@ -1134,6 +1155,31 @@ function renderCompanyCard(company, allLeads, fitClass) {
       </div>
     </div>
   `;
+}
+
+// Copy email to clipboard
+function copyEmail(email) {
+  navigator.clipboard.writeText(email).then(() => {
+    // Show brief success feedback
+    const btn = event.target.closest('.copy-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      Copied!
+    `;
+    btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+    btn.style.color = '#fff';
+
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy:', err);
+  });
 }
 
 // Initialize
