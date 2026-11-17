@@ -1135,7 +1135,7 @@ function renderCompanyCard(company, allLeads, fitClass) {
                   </svg>
                 </span>
                 <span class="email-text">${lead.Email}</span>
-                <button class="copy-btn" onclick="copyEmail('${lead.Email}')">
+                <button class="copy-btn" onclick="copyEmail('${lead.Email}', event)">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
@@ -1158,7 +1158,9 @@ function renderCompanyCard(company, allLeads, fitClass) {
 }
 
 // Copy email to clipboard
-function copyEmail(email) {
+function copyEmail(email, event) {
+  event.stopPropagation(); // Prevent the click from bubbling to parent elements
+
   navigator.clipboard.writeText(email).then(() => {
     // Show brief success feedback
     const btn = event.target.closest('.copy-btn');
