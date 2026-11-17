@@ -102,6 +102,14 @@ svg{display:block}
 .info-card p{font-size:14px;color:var(--muted);line-height:1.6}
 .info-card .meta{font-size:12px;font-weight:700;color:var(--brand);margin-top:12px;text-transform:uppercase;letter-spacing:.5px}
 
+/* Process steps */
+.process-steps{margin:28px 0;display:flex;flex-direction:column;gap:20px}
+.process-step{display:flex;gap:20px;align-items:flex-start}
+.step-num{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0;box-shadow:0 4px 12px rgba(44,90,160,.2)}
+.step-content{flex:1}
+.step-content h3{font-size:17px;font-weight:800;color:var(--ink);margin-bottom:8px;letter-spacing:-.3px}
+.step-content p{font-size:14px;color:var(--muted);line-height:1.6}
+
 /* Table */
 .data-table{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 26px rgba(44,90,160,.06);margin:24px 0}
 .data-table table{width:100%;border-collapse:collapse}
@@ -371,6 +379,115 @@ svg{display:block}
 
     <div class="callout">
       <strong>Research approach:</strong> I target 2–4 contacts per Priority A account, sequenced intelligently (not simultaneous identical messages). Tier 1 personas receive first outreach, with Tier 2 added if no response within 7 days.
+    </div>
+  </div>
+
+  <!-- Lead Generation Process -->
+  <div class="section reveal">
+    <div class="section-head"><h2>My Standard Lead Generation & Campaign Setup Process</h2></div>
+    <p class="section-intro">This is the process I typically follow when launching outbound campaigns for a new client. It's a reliable starting framework that I adjust as we collect data and learn which segments and messaging perform best.</p>
+
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Company sourcing</h3>
+          <p>I use Clay to identify companies that match the initial ICP, applying filters such as industry, company size, geography, and relevant market signals.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Company qualification</h3>
+          <p>Before finding individual contacts, I verify which companies genuinely fit the client's offering. I review their websites, business models, operations, and available market signals. Companies are classified by fit and priority so we don't spend enrichment credits on irrelevant accounts.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Contact enrichment</h3>
+          <p>Once a company is qualified, I identify the relevant decision-makers and other stakeholders through Clay, Apollo, LinkedIn Sales Navigator, and additional sources when needed.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Email discovery and verification</h3>
+          <p>I find business email addresses using the available data providers, apply verification, remove duplicates, and exclude unsuitable contacts before campaign enrollment.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>CRM checks and suppression</h3>
+          <p>Before enrolling any contact, I cross-reference against existing customers, active sales conversations, ongoing negotiations, and opt-out lists. This ensures we never contact someone Inspiro's team is already engaging with.</p>
+        </div>
+      </div>
+
+      <div class="process-step">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <h3>Campaign setup and execution</h3>
+          <p>I segment qualified leads into the appropriate email campaigns, configure follow-ups, coordinate LinkedIn outreach, and monitor replies and meeting conversions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px">
+      <h3 style="font-size:20px;font-weight:800;color:var(--ink);margin-bottom:16px">Campaign Segmentation</h3>
+      <p class="section-intro" style="margin-bottom:24px">I don't automatically place every qualified contact into one sequence. The approach depends on the ICP, industry, buyer persona, and the specific problem Inspiro can solve.</p>
+
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Campaign</th>
+              <th>Target persona</th>
+              <th>Messaging focus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Retail CX</strong></td>
+              <td>VP Customer Experience, VP Customer Service</td>
+              <td>Seasonal demand, customer support capacity, service quality</td>
+            </tr>
+            <tr>
+              <td><strong>Telecom Operations</strong></td>
+              <td>VP Customer Operations, Contact Center Director</td>
+              <td>Billing operations, escalations, support efficiency</td>
+            </tr>
+            <tr>
+              <td><strong>Finance & BPS</strong></td>
+              <td>COO, VP Shared Services, VP Finance Operations</td>
+              <td>Back-office workload, process efficiency, accuracy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="section-intro" style="margin-top:20px">Within these segments, I would test two messaging approaches:</p>
+
+      <div class="signal-grid" style="margin-top:20px">
+        <div class="signal-card">
+          <h3>Version A: Referral-focused</h3>
+          <p>A short email asking who is responsible for the relevant function.</p>
+        </div>
+        <div class="signal-card">
+          <h3>Version B: Contextual</h3>
+          <p>The same simple approach, but with one sentence explaining Inspiro's relevant capabilities.</p>
+        </div>
+      </div>
+
+      <p class="section-intro" style="margin-top:20px">Each version would have an initial email and two follow-ups, spaced approximately three days apart.</p>
+    </div>
+
+    <div class="callout" style="margin-top:32px">
+      <strong>Continuous refinement:</strong> This is my standard process for launching new outbound campaigns. It gives us a structured and reliable starting point, but I continuously refine the ICP, lead qualification criteria, messaging, and outreach strategy based on actual campaign performance.
     </div>
   </div>
 
