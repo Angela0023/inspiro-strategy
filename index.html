@@ -808,31 +808,6 @@ svg{display:block}
     </div>
   </div>
 
-  <!-- Sample Accounts -->
-  <div class="section reveal">
-    <div class="section-head"><h2>Sample Target Accounts</h2></div>
-    <p class="section-intro">I will research and add 2–3 specific U.S. companies with verified signals, buyer personas, and campaign assignment after enrichment and qualification.</p>
-
-    <div class="data-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>ICP Fit</th>
-            <th>Verified Signal</th>
-            <th>Buyer Persona</th>
-            <th>Campaign</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="5" style="text-align:center;color:var(--muted);font-style:italic;padding:30px">Sample companies will be added after research and qualification</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
   <!-- Why Me -->
   <div class="section reveal">
     <div class="section-head"><h2>What Makes Me Different</h2></div>
@@ -860,11 +835,11 @@ svg{display:block}
 
   <!-- CTA -->
   <div class="cta-box reveal">
-    <h2>View my top picks for Inspiro</h2>
-    <p>After completing my research, I'll add 2-3 specific target companies with verified buying signals, exact buyer personas, and campaign assignments to demonstrate how I prioritize accounts.</p>
-    <button class="btn" onclick="scrollToTop()">
-      <span>Back to Top</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+    <h2>View 25 Top Picks</h2>
+    <p>I've identified 8 qualified U.S. retail companies with 25 verified decision-maker contacts across operations, customer experience, and contact center leadership. See the full list of companies and leads below.</p>
+    <button class="btn" onclick="document.getElementById('companies-section').scrollIntoView({behavior: 'smooth', block: 'start'})">
+      <span>View Companies & Leads</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
   </div>
 
@@ -881,9 +856,13 @@ svg{display:block}
   </div>
 
   <!-- Qualified Companies & Leads -->
-  <div class="section reveal" style="margin-top:60px">
-    <div class="section-head"><h2>Top Qualified Companies & Leads</h2><span class="num">Ready to contact</span></div>
-    <p class="section-intro">I've identified and qualified these U.S. retail companies with verified decision-maker contacts. Each company has been scored on operational fit, signal strength, and solution match. Click any company to view the specific decision-makers I've sourced.</p>
+  <div class="section reveal" style="margin-top:60px" id="companies-section">
+    <div class="section-head"><h2>Top Qualified Companies & Leads</h2><span class="num">8 companies, 25 leads</span></div>
+    <p class="section-intro">I've identified and qualified these U.S. retail companies with verified decision-maker contacts. Each company has been scored on operational fit, signal strength, and solution match.</p>
+
+    <div class="callout" style="margin-bottom:28px;background:linear-gradient(135deg,var(--brand-soft),var(--card));border:2px solid var(--brand)">
+      <strong>💡 How to view leads:</strong> Click on any company card below to expand and see all decision-makers with their LinkedIn profiles and contact information. The number badge shows how many leads I found for each company.
+    </div>
 
     <div id="companies-container">
       <p style="text-align:center;color:var(--muted);padding:40px">Loading companies...</p>
@@ -1098,6 +1077,10 @@ function renderCompanyCard(company, allLeads, fitClass) {
           <div class="company-links">
             <a href="https://${company.Domain}" target="_blank">Website</a>
             <a href="${company['Company LinkedIn URL']}" target="_blank">LinkedIn</a>
+          </div>
+          <div style="margin-top:16px;font-size:13px;font-weight:700;color:var(--brand);display:flex;align-items:center;gap:6px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            Click to view ${leadCount} decision-maker${leadCount > 1 ? 's' : ''}
           </div>
         </div>
         <div class="lead-count-badge">
